@@ -1,0 +1,31 @@
+<body>
+  <div id="error-container">loading errors: 0</div>
+  <script>
+    var errors = 0;
+    function error() {
+      errors++;
+      document.querySelector('#error-container').innerHTML = 'loading errors: ' + errors;
+    }
+
+    function getNumParam() {
+      const params = new URLSearchParams(window.location.search);
+      return parseInt(params.get('num')) || 0;
+    }
+
+    function loadImages() {
+      const num = getNumParam();
+      const container = document.body;
+
+      for (let i = 1; i <= num; i++) {
+        const img = document.createElement('img');
+        img.src = `img.jpg?${i}=${i}`;
+        img.width = 32;
+        img.height = 19;
+        img.onerror = error;
+        container.appendChild(img);
+      }
+    }
+
+    loadImages();
+  </script>
+</body>
